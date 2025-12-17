@@ -1,3 +1,5 @@
+
+
 class cold_door:
     
     def __init__(self):
@@ -51,4 +53,5 @@ if __name__ == "__main__":
     my_xolodos.info_holod()
     my_xolodos.get("Яблоко")
     my_xolodos.close()
+
     my_xolodos.get("Яблоко")
