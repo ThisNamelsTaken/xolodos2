@@ -1,57 +1,75 @@
+from abc import ABC, abstractmethod
 
-
-class cold_door:
-    
-    def __init__(self):
-        self.is_open = 0   
+class Door(ABC):
+    @abstractmethod
     def open(self):
-        self.is_open = 1
-        print("холодильник открыт.")   
+        pass
+    @abstractmethod
     def close(self):
-        self.is_open = 0
-        print("холодильник закрыт.")
+        pass
 
-class cold_product:
-    
-    def __init__(self):
-        self.producti = []   
-    def put(self, list_product):
-        self.producti.append(list_product)
-        print(f"положили '{list_product}' в холодильник.")   
-    def get(self, list_product):
-        if list_product in self.producti:
-            self.producti.remove(list_product)
-            print(f"достали '{list_product}' из холодильника.")
-            return list_product
+class ColdDoor(Door):
+    def init(self): 
+        self.is_open = False
+    def open(self):
+        self.is_open = True
+        print("Холодильник открыт.")
+    def close(self):
+        self.is_open = False
+        print("Холодильник закрыт.")
+
+class Storage(ABC):
+    @abstractmethod
+    def put(self, product):
+        pass
+    @abstractmethod
+    def get(self, product):
+        pass
+    @abstractmethod
+    def info(self):
+        pass
+
+class ColdProduct(Storage):
+    def init(self):  
+        self.products = []
+    def put(self, product):
+        self.products.append(product)
+        print(f"Положили '{product}' в холодильник.")
+    def get(self, product):
+        if product in self.products:
+            self.products.remove(product)
+            print(f"Достали '{product}' из холодильника.")
+            return product
         else:
-            print(f"в холодильнике нет '{list_product}'.")
-            return None   
-    def info_holod(self):
-        print(f"в холодильнике:", ", ".join(self.producti))
+            print(f"В холодильнике нет '{product}'.")
+            return None
+    def info(self):
+        if self.products:
+            print(f"В холодильнике: {', '.join(self.products)}")
+        else:
+            print("Холодильник пуст.")
 
 class Xolodos:
-        
-    def __init__(self):
-        self.door = cold_door()
-        self.storage = cold_product()   
+    def init(self):  
+        self.door = ColdDoor()
+        self.storage = ColdProduct()
     def open(self):
-        self.door.open()   
+        self.door.open()
     def close(self):
-        self.door.close()    
-    def put(self, list_product):
-        self.storage.put(list_product)   
-    def get(self, list_product):
-        return self.storage.get(list_product)   
-    def info_holod(self):
-        self.storage.info_holod()
+        self.door.close()
+    def put(self, product):
+        self.storage.put(product)
+    def get(self, product):
+        return self.storage.get(product)
+    def info(self):
+        self.storage.info()
 
-if __name__ == "__main__":
+if name == "main": 
     my_xolodos = Xolodos()
-    
     my_xolodos.open()
     my_xolodos.put("Яблоко")
-    my_xolodos.info_holod()
+    my_xolodos.info()
     my_xolodos.get("Яблоко")
+    my_xolodos.info()
     my_xolodos.close()
-
-    my_xolodos.get("Яблоко")
+    my_xolodos.open()
