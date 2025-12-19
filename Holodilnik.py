@@ -73,4 +73,3 @@ if __name__ == "__main__":
     my_xolodos.info()
     my_xolodos.close()
     my_xolodos.open()
-
