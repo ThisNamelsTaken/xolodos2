@@ -9,7 +9,7 @@ class Door(ABC):
         pass
 
 class ColdDoor(Door):
-    def init(self): 
+    def __init__(self): 
         self.is_open = False
     def open(self):
         self.is_open = True
@@ -30,7 +30,7 @@ class Storage(ABC):
         pass
 
 class ColdProduct(Storage):
-    def init(self):  
+    def __init__(self):  
         self.products = []
     def put(self, product):
         self.products.append(product)
@@ -50,7 +50,7 @@ class ColdProduct(Storage):
             print("Холодильник пуст.")
 
 class Xolodos:
-    def init(self):  
+    def __init__(self):  
         self.door = ColdDoor()
         self.storage = ColdProduct()
     def open(self):
@@ -64,7 +64,7 @@ class Xolodos:
     def info(self):
         self.storage.info()
 
-if name == "main": 
+if __name__ == "__main__": 
     my_xolodos = Xolodos()
     my_xolodos.open()
     my_xolodos.put("Яблоко")
@@ -73,3 +73,4 @@ if name == "main":
     my_xolodos.info()
     my_xolodos.close()
     my_xolodos.open()
+
