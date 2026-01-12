@@ -30,9 +30,16 @@ class Storage(ABC):
         pass
 
 class ColdProduct(Storage):
-    def __init__(self):  
+    def __init__(self):
         self.products = []
+
     def put(self, product):
+        if not isinstance(product, str):
+            print(f"Ошибка: '{product}' не является строкой. Можно класть только текстовые названия из букв.")
+            return
+        if not product.isalpha():
+            print(f"Ошибка: '{product}' содержит цифры или специальные символы. Можно класть только слова из букв.")
+            return
         self.products.append(product)
         print(f"Положили '{product}' в холодильник.")
     def get(self, product):
@@ -67,6 +74,8 @@ class Xolodos:
 if __name__ == "__main__": 
     my_xolodos = Xolodos()
     my_xolodos.open()
+    my_xolodos.put(123)    
+    my_xolodos.put("1Яблоко")
     my_xolodos.put("Яблоко")
     my_xolodos.info()
     my_xolodos.get("Яблоко")
