@@ -29,7 +29,7 @@ class ColdDoor(Door):
         logger.info("Дверь холодильника закрыта")
         print("Холодильник закрыт.")
 
-    class Storage(ABC):
+class Storage(ABC):
     @abstractmethod
     def put(self, product):
         pass
@@ -46,11 +46,18 @@ class ColdProduct(Storage):
         logger.info("Создано хранилище продуктов (холодильник пуст)")
     def put(self, product):
         logger.debug(f"Попытка положить продукт: {product}")
-        if not isinstance(product, str):
-            logger.error(f"Ошибка: '{product}' не является строкой. Можно класть только текстовые названия из букв.")
-            print(f"Ошибка: '{product}' не является строкой. Можно класть только текстовые названия из букв.")
-            return
-        if not product.isalpha():
+        
+        if type(product) != str:
+            logger.error(f"Ошибка: '{product}' не является строкой. Можно класть только текстовые названия.")
+            print(f"Ошибка: '{product}' не является строкой. Можно класть только текстовые названия.")
+            return 
+        all_letters = True
+        for char in product:
+            if not ('A' <= char <= 'Z' or 'a' <= char <= 'z' or 
+                    'А' <= char <= 'Я' or 'а' <= char <= 'я'):
+                all_letters = False
+                break
+        if not all_letters:
             logger.error(f"Ошибка: '{product}' содержит цифры или специальные символы. Можно класть только слова из букв.")
             print(f"Ошибка: '{product}' содержит цифры или специальные символы. Можно класть только слова из букв.")
             return
