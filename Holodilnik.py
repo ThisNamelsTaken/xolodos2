@@ -22,11 +22,9 @@ class ColdDoor(Door):
         logger.info("Создана дверь холодильника (состояние: закрыта)")
     def open(self):
         self.is_open = True
-        logger.info("Дверь холодильника открыта")
         print("Холодильник открыт.")
     def close(self):
         self.is_open = False
-        logger.info("Дверь холодильника закрыта")
         print("Холодильник закрыт.")
 
 class Storage(ABC):
@@ -48,7 +46,6 @@ class ColdProduct(Storage):
         logger.debug(f"Попытка положить продукт: {product}")
         
         if type(product) != str:
-            logger.error(f"Ошибка: '{product}' не является строкой. Можно класть только текстовые названия.")
             print(f"Ошибка: '{product}' не является строкой. Можно класть только текстовые названия.")
             return 
         all_letters = True
@@ -58,30 +55,24 @@ class ColdProduct(Storage):
                 all_letters = False
                 break
         if not all_letters:
-            logger.error(f"Ошибка: '{product}' содержит цифры или специальные символы. Можно класть только слова из букв.")
             print(f"Ошибка: '{product}' содержит цифры или специальные символы. Можно класть только слова из букв.")
             return
         self.products.append(product)
-        logger.info(f"Продукт '{product}' успешно добавлен в холодильник")
         print(f"Положили '{product}' в холодильник.")
     def get(self, product):
         logger.debug(f"Попытка достать продукт: {product}")
         if product in self.products:
             self.products.remove(product)
-            logger.info(f"Продукт '{product}' извлечён из холодильника")
             print(f"Достали '{product}' из холодильника.")
             return product
         else:
-            logger.warning(f"Продукт '{product}' не найден в холодильнике")
             print(f"В холодильнике нет '{product}'.")
             return None
     def info(self):
         if self.products:
             products_str = ', '.join(self.products)
-            logger.info(f"Состояние холодильника: {products_str}")
             print(f"В холодильнике: {products_str}")
         else:
-            logger.info("Холодильник пуст")
             print("Холодильник пуст.")
 
 class Xolodos:
